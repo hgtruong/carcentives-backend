@@ -1,12 +1,11 @@
-/* eslint-disable no-console */
 const express = require('express');
 const bodyParser = require('body-parser');
 const APIKey = require('../config');
 const axios = require('axios');
-const parseString = require('xml2js').parseString;
 const puppeteer = require('puppeteer');
 const preparePageForTests = require('./preparePageForTests')
 const Cars = require('./CarList');
+const parseString = require('xml2js').parseString;
 
 const app = express();
 
@@ -45,7 +44,7 @@ app.get('/validateZip', async (req, res) => {
       url:
       `
         ${url}
-        <CityStateLookupRequest USERID="${APIKey.USPS_USER_ID}">
+        <CityStateLookupRequest USERID="${process.env.USPS_USER_ID}">
           <ZipCode ID='0'>
             <Zip5>${req.query.zipCode}</Zip5>
           </ZipCode>
@@ -108,5 +107,5 @@ app.post('/carSubmission', (req, res) => {
 
 app.listen(process.env.PORT || 3000, () => {
   // eslint-disable-next-line no-console
-  console.log(`Server is running...`);
+  console.log(`Server is running on port ${process.env.PORT}...`);
 });
