@@ -10,7 +10,7 @@ const Cars = require('./CarList');
 
 const app = express();
 
-app.use(express.static(`${__dirname}/../client/dist`));
+// app.use(express.static(`${__dirname}/../client/dist`));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -106,7 +106,7 @@ app.post('/carSubmission', (req, res) => {
   })({make: req.query.make, model: req.query.model, zipCode: req.query.zipCode});
 });
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
   // eslint-disable-next-line no-console
-  console.log('listening on port 3000!');
+  console.log(`Server is running...`);
 });
