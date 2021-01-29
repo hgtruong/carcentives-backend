@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const APIKey = require('../config');
 const axios = require('axios');
 const puppeteer = require('puppeteer');
 const preparePageForTests = require('./preparePageForTests')
