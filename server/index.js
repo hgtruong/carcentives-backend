@@ -1,13 +1,13 @@
 /* eslint-disable no-console */
 const express = require('express');
 const bodyParser = require('body-parser');
-const db = require('../database');
 const APIKey = require('../config');
 const axios = require('axios');
 const parseString = require('xml2js').parseString;
 const puppeteer = require('puppeteer');
 const preparePageForTests = require('./preparePageForTests')
 const Cars = require('./CarList');
+
 const app = express();
 
 app.use(express.static(`${__dirname}/../client/dist`));
