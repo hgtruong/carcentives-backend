@@ -8,16 +8,16 @@ const parseString = require('xml2js').parseString;
 
 const app = express();
 const port = 3000;
-const allowed_origins = ['http://localhost:3000/', 'https://carcentives.netlify.app/'];
+const allowed_origins = "http://localhost:3000/, https://carcentives.netlify.app/";
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", `${allowed_origins}`);
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Methods', 'GET, POST');
-  res.header('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Allow-Methods", "GET, POST");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 
