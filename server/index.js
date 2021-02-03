@@ -13,7 +13,7 @@ const allowed_origins = ['http://localhost:3000/', 'https://carcentives.netlify.
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.user((req, res, next) => {
+app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", `${allowed_origins}`);
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header('Access-Control-Allow-Methods', 'GET, POST');
