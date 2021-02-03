@@ -8,18 +8,22 @@ const parseString = require('xml2js').parseString;
 
 const app = express();
 const port = 3000;
-const allowed_origins = ['http://localhost:3000', 'https://carcentives.netlify.app'];
+const allowed_origins = ['http://localhost:3000/', 'https://carcentives.netlify.app/'];
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", `${allowed_origins}`);
-  res.setHeader('Access-Control-Allow-Credentials: true');
-  res.setHeader('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers: Content-Type');
-  res.send("CORS OPTIONS sent");
+app.user((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", `${allowed_origins}`);
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Allow-Methods', 'GET, POST');
+  res.header('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept");
+  next();
 });
+
+app.get('/', (req, res) => {
+  res.status(200).send("Carcentives server is alive");
+})
 
 app.get('/api/makes', (req, res) => {
 
