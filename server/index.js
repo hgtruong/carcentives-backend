@@ -12,13 +12,17 @@ const allowedOrigins = ['http://localhost:3000/', 'https://carcentives.netlify.a
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.options('/',(req, res) => {
+app.options('/', (req, res) => {
   res.header("Access-Control-Allow-Origing", `${allowedOrigins}`);
   res.header('Access-Control-Allow-Credentials: true');
   res.header('Access-Control-Allow-Methods: GET, POST');
   res.header('Access-Control-Allow-Headers: Content-Type');
   res.end();
 });
+
+app.get('/', (req, res) => {
+  res.status(200).statusMessage("carcentives-server is alive!");
+})
 
 app.get('/makes', (req, res) => {
 
