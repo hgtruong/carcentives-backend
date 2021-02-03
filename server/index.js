@@ -7,24 +7,21 @@ const Cars = require('./CarList');
 const parseString = require('xml2js').parseString;
 
 const app = express();
-const allowedOrigins = ['http://localhost:3000/', 'https://carcentives.netlify.app/'];
+const port = 3000;
+const allowed_origins = ['http://localhost:3000', 'https://carcentives.netlify.app'];
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.options('/', (req, res) => {
-  res.header("Access-Control-Allow-Origin", `${allowedOrigins}`);
-  res.header('Access-Control-Allow-Credentials: true');
-  res.header('Access-Control-Allow-Methods: GET, POST');
-  res.header('Access-Control-Allow-Headers: Content-Type');
-  res.end();
+app.get('/', (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", `${allowed_origins}`);
+  res.setHeader('Access-Control-Allow-Credentials: true');
+  res.setHeader('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers: Content-Type');
+  res.send("CORS OPTIONS sent");
 });
 
-app.get('/', (req, res) => {
-  res.status(200).send("carcentives-server is alive!");
-})
-
-app.get('/makes', (req, res) => {
+app.get('/api/makes', (req, res) => {
 
   if(Cars !== undefined) {
     console.log('Car makes queried successfully.');
@@ -35,7 +32,7 @@ app.get('/makes', (req, res) => {
   }
 });
 
-app.get('/models', (req, res) => {
+app.get('/api/models', (req, res) => {
   const selectedMake = req.query.selectedMake;
 
   if(Cars[selectedMake] !== undefined) {
@@ -76,7 +73,7 @@ app.get('/validateZip', async (req, res) => {
   }
 });
 
-app.post('/carSubmission', (req, res) => {
+app.post('/api/carSubmission', (req, res) => {
   (async ({make, model, zipCode}) => {
     try{
       console.log(`Starting incentives retrieval for ${make}-${model}-${zipCode}`);
@@ -116,7 +113,7 @@ app.post('/carSubmission', (req, res) => {
   })({make: req.query.make, model: req.query.model, zipCode: req.query.zipCode});
 });
 
-app.listen(process.env.PORT || 3000, () => {
+app.listen(() => {
   // eslint-disable-next-line no-console
-  console.log(`Server is running on port ${process.env.PORT}...`);
+  console.log(`Server is running on port ${process.env.PORT || 3000}...`);
 });
