@@ -7,23 +7,23 @@ const Cars = require('./CarList');
 const parseString = require('xml2js').parseString;
 
 const app = express();
-const port = 3000;
-const allowed_origins = ["http://localhost:3000", "https://carcentives.netlify.app"];
+
+// const allowed_origins = ["http://localhost:3000", "https://carcentives.netlify.app"];
+const allowed_origins = "http://localhost:3000";
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
-  let origin = req.headers.origin;
-  let checkedOrigin = allowed_origins.indexOf(origin) >= 0 ? origin : allowed_origins[1];
-  console.log("Origin is:", origin);
-  console.log("checkedOrigin is:", checkedOrigin);
-  res.header("Access-Control-Allow-Origin", `${checkedOrigin}`);
+  // let origin = req.headers.origin;
+  // let checkedOrigin = allowed_origins.indexOf(origin) >= 0 ? origin : allowed_origins[1];
+  // console.log("Origin is:", origin);
+  // console.log("checkedOrigin is:", checkedOrigin);
+  res.header("Access-Control-Allow-Origin", `${allowed_origins}`);
   res.header("Access-Control-Allow-Credentials", "true");
   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
-  res.status(200).send("CORS settings sent");
 });
 
 app.get('/', (req, res) => {
