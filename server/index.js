@@ -5,26 +5,27 @@ const puppeteer = require('puppeteer');
 const preparePageForTests = require('./preparePageForTests')
 const Cars = require('./CarList');
 const parseString = require('xml2js').parseString;
+const cors = require('cors'); 
+
+const whitelist = ["http://localhost:3000", "https://carcentives.netlify.app"]; 
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(null, false);
+    }
+  },
+  methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Access-Control-Allow-Origin', 'Origin', 'Accept']
+};
 
 const app = express();
-
-// const allowed_origins = ["http://localhost:3000", "https://carcentives.netlify.app"];
-const allowed_origins = "http://localhost:3000";
-
+app.use(cors(corsOptions)); 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-app.use((req, res, next) => {
-  // let origin = req.headers.origin;
-  // let checkedOrigin = allowed_origins.indexOf(origin) >= 0 ? origin : allowed_origins[1];
-  // console.log("Origin is:", origin);
-  // console.log("checkedOrigin is:", checkedOrigin);
-  res.header("Access-Control-Allow-Origin", `${allowed_origins}`);
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
 
 app.get('/', (req, res) => {
   res.status(200).send("Carcentives server is alive");
