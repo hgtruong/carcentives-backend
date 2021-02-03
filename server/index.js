@@ -21,7 +21,7 @@ app.options('/', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.status(200).statusMessage("carcentives-server is alive!");
+  res.status(200).send("carcentives-server is alive!");
 })
 
 app.get('/makes', (req, res) => {
