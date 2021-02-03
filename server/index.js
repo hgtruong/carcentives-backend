@@ -117,7 +117,7 @@ app.post('/api/carSubmission', (req, res) => {
   })({make: req.query.make, model: req.query.model, zipCode: req.query.zipCode});
 });
 
-app.listen(() => {
+app.listen(process.env.PORT || 3000, () => {
   // eslint-disable-next-line no-console
   console.log(`Server is running on port ${process.env.PORT || 3000}...`);
 });
