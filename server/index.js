@@ -54,7 +54,7 @@ app.get('/api/models', (req, res) => {
   }
 });
 
-app.get('/api/validateZip', async (req, res) => {
+app.post('/api/validateZip', async (req, res) => {
   let url = `https://secure.shippingapis.com/ShippingAPI.dll?API=CityStateLookup&XML=`;
   try {
     console.log('Contacting USPS to validate zip code');
