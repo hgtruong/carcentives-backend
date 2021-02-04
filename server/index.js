@@ -46,7 +46,7 @@ app.get('/api/models', (req, res) => {
   const selectedMake = req.query.selectedMake;
 
   if(Cars[selectedMake] !== undefined) {
-    console.log('Car models retrieved.');
+    console.log(`Car models for "${selectedMake}" retrieved.`);
     res.status(200).json(Cars[selectedMake]);
   } else {
     console.log(`Car models for "${selectedMake}" failed.`);
@@ -54,9 +54,10 @@ app.get('/api/models', (req, res) => {
   }
 });
 
-app.get('/validateZip', async (req, res) => {
+app.get('/api/validateZip', async (req, res) => {
   let url = `https://secure.shippingapis.com/ShippingAPI.dll?API=CityStateLookup&XML=`;
   try {
+    console.log('Contacting USPS to validate zip code');
     const result = await axios({
       method: 'GET', 
       url:
@@ -123,7 +124,7 @@ app.post('/api/carSubmission', (req, res) => {
   })({make: req.query.make, model: req.query.model, zipCode: req.query.zipCode});
 });
 
-app.listen(process.env.PORT || 3000, () => {
+app.listen(process.env.PORT || 8080, () => {
   // eslint-disable-next-line no-console
-  console.log(`Server is running on port ${process.env.PORT || 3000}...`);
+  console.log(`Server is running on port ${process.env.PORT || 8080}...`);
 });
