@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Server for Carcentives",
   "scripts": {
-    "test": "jest",
-    "server": "nodemon server/index.js"
+    "test": "jest --detectOpenHandles",
+    "server": "nodemon server/server.js"
   },
   "author": "Huy Truong",
   "license": "ISC",
@@ -18,6 +18,13 @@
     "xml2js": "^0.4.23"
   },
   "devDependencies": {
-    "jest": "^26.6.3"
+    "jest": "^26.6.3",
+    "supertest": "^6.1.3"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   }
 }
