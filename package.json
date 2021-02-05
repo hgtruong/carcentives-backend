@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Server for Carcentives",
   "scripts": {
-    "test": "jest --detectOpenHandles",
+    "test": "jest",
     "server": "nodemon server/server.js"
   },
   "author": "Huy Truong",
