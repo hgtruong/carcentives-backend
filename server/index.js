@@ -7,6 +7,10 @@ const Cars = require('./CarList');
 const parseString = require('xml2js').parseString;
 const cors = require('cors'); 
 
+if(process.env.NODE_ENV.toUpperCase() !== "PRODUCTION") {
+  require('dotenv').config();
+}
+
 const whitelist = ["http://localhost:3000", "https://carcentives.netlify.app"]; 
 var corsOptions = {
   origin: function (origin, callback) {

@@ -24,5 +24,16 @@ describe('API test calls', () => {
     });
   }
 
+  it('should validate correct zip', async () => {
+    const response = await request(app).post("/api/validateZip?zipCode=90210");
+    expect(response.statusCode).toBe(200);
+    expect(response.body.City.length).toBeGreaterThan(0);
+  });
+
+  it('should detect incorrect zip', async () => {
+    const response = await request(app).post("/api/validateZip?zipCode=12340");
+    expect(response.statusCode).toBe(200);
+    expect(response.body.City).toBe(undefined);
+  });
 
 });
